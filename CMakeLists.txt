@@ -474,9 +474,6 @@ if(HPX_WITH_AGAS_DUMP_REFCNT_ENTRIES)
 endif()
 
 ## Parcelport related build options
-hpx_option(HPX_WITH_PARCELPORT_VERBS BOOL
-  "Enable the ibverbs based parcelport. This is currently an experimental feature"
-  OFF CATEGORY "Parcelport" ADVANCED)
 hpx_option(HPX_WITH_PARCELPORT_IPC BOOL
   "Enable the IPC (inter process communication) based parcelport. This is currently an experimental feature"
   OFF CATEGORY "Parcelport" ADVANCED)
@@ -493,6 +490,10 @@ if(HPX_WITH_PARCELPORT_ACTION_COUNTERS)
   hpx_add_config_define(HPX_HAVE_PARCELPORT_ACTION_COUNTERS)
 endif()
 
+## ibverbs parcelport settings
+hpx_option(HPX_WITH_PARCELPORT_VERBS BOOL
+  "Enable the ibverbs based parcelport. This is currently an experimental feature"
+  OFF CATEGORY "Parcelport" ADVANCED)
 
 ## mpi parcelport settings
 hpx_option(HPX_WITH_PARCELPORT_MPI_ENV STRING
