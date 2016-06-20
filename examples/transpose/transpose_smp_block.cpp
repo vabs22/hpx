@@ -69,7 +69,7 @@ int hpx_main(boost::program_options::variables_map& vm)
 
     // Fill the original matrix, set transpose to known garbage value.
     auto range = boost::irange(start, num_blocks);
-    for_each(par, boost::begin(range), boost::end(range),
+    for_each(par, std::begin(range), std::end(range),
         [&](std::uint64_t b)
         {
             for(std::uint64_t i = 0; i < order; ++i)
@@ -99,11 +99,11 @@ int hpx_main(boost::program_options::variables_map& vm)
         std::vector<hpx::shared_future<void> > transpose_futures;
         transpose_futures.resize(num_blocks);
 
-        for_each(par, boost::begin(range), boost::end(range),
+        for_each(par, std::begin(range), std::end(range),
             [&](std::uint64_t b)
             {
                 transpose_futures[b] =
-                    for_each(par(task), boost::begin(range), boost::end(range),
+                    for_each(par(task), std::begin(range), std::end(range),
                         [&, b](std::uint64_t phase)
                         {
                             const std::uint64_t block_size = block_order * block_order;
@@ -229,7 +229,7 @@ double test_results(std::uint64_t order, std::uint64_t block_order,
     // Fill the original matrix, set transpose to known garbage value.
     auto range = boost::irange(start, end);
     double errsq =
-        transform_reduce(par, boost::begin(range), boost::end(range),
+        transform_reduce(par, std::begin(range), std::end(range),
             [&](std::uint64_t b) -> double
             {
                 double errsq = 0.0;

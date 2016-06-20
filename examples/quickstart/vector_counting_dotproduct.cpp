@@ -10,8 +10,8 @@
 #include <hpx/include/iostreams.hpp>
 
 #include <boost/iterator/counting_iterator.hpp>
-#include <boost/range/functions.hpp>
 
+#include <iterator>
 #include <string>
 #include <vector>
 
@@ -21,8 +21,8 @@ int hpx_main()
     // lets say we have two vectors that simulate.. 10007D
     std::vector<double> xvalues(10007);
     std::vector<double> yvalues(10007);
-    std::fill(boost::begin(xvalues), boost::end(xvalues), 1.0);
-    std::fill(boost::begin(yvalues), boost::end(yvalues), 1.0);
+    std::fill(std::begin(xvalues), std::end(xvalues), 1.0);
+    std::fill(std::begin(yvalues), std::end(yvalues), 1.0);
 
     double result =
         hpx::parallel::transform_reduce(

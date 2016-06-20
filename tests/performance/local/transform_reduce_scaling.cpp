@@ -12,12 +12,12 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <iterator>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
 #include <boost/format.hpp>
-#include <boost/range/functions.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 int test_count = 100;
@@ -36,8 +36,8 @@ void measure_transform_reduce(std::size_t size)
     // invode transform_reduce
     double result =
         hpx::parallel::transform_reduce(hpx::parallel::par,
-        boost::begin(data_representation),
-        boost::end(data_representation),
+        std::begin(data_representation),
+        std::end(data_representation),
         [](Point r)
         {
             return r.x * r.y;
@@ -56,8 +56,8 @@ void measure_transform_reduce_old(std::size_t size)
     //invode old reduce
     Point result =
         hpx::parallel::reduce(hpx::parallel::par,
-        boost::begin(data_representation),
-        boost::end(data_representation),
+        std::begin(data_representation),
+        std::end(data_representation),
         Point{0.0, 0.0},
         [](Point res, Point curr)
         {

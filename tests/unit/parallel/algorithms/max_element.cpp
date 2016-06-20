@@ -29,24 +29,24 @@ void test_max_element(ExPolicy policy, IteratorTag)
 
     std::vector<std::size_t> c = test::random_iota(10007);
 
-    iterator end(boost::end(c));
-    base_iterator ref_end(boost::end(c));
+    iterator end(std::end(c));
+    base_iterator ref_end(std::end(c));
 
     iterator r = hpx::parallel::max_element(policy,
-        iterator(boost::begin(c)), iterator(end),
+        iterator(std::begin(c)), iterator(end),
         std::less<std::size_t>());
     HPX_TEST(r != end);
 
     base_iterator ref = std::max_element(
-        boost::begin(c), boost::end(c), std::less<std::size_t>());
+        std::begin(c), std::end(c), std::less<std::size_t>());
     HPX_TEST(ref != ref_end);
     HPX_TEST_EQ(*ref, *r);
 
     r = hpx::parallel::max_element(policy,
-        iterator(boost::begin(c)), iterator(boost::end(c)));
+        iterator(std::begin(c)), iterator(std::end(c)));
     HPX_TEST(r != end);
 
-    ref = std::max_element(boost::begin(c), boost::end(c));
+    ref = std::max_element(std::begin(c), std::end(c));
     HPX_TEST(ref != ref_end);
     HPX_TEST_EQ(*ref, *r);
 }
@@ -59,26 +59,26 @@ void test_max_element_async(ExPolicy p, IteratorTag)
 
     std::vector<std::size_t> c = test::random_iota(10007);
 
-    iterator end(boost::end(c));
-    base_iterator ref_end(boost::end(c));
+    iterator end(std::end(c));
+    base_iterator ref_end(std::end(c));
 
     hpx::future<iterator> r = hpx::parallel::max_element(p,
-        iterator(boost::begin(c)), iterator(end),
+        iterator(std::begin(c)), iterator(end),
         std::less<std::size_t>());
     iterator rit = r.get();
     HPX_TEST(rit != end);
 
     base_iterator ref = std::max_element(
-        boost::begin(c), boost::end(c), std::less<std::size_t>());
+        std::begin(c), std::end(c), std::less<std::size_t>());
     HPX_TEST(ref != ref_end);
     HPX_TEST_EQ(*ref, *rit);
 
     r = hpx::parallel::max_element(p,
-        iterator(boost::begin(c)), iterator(boost::end(c)));
+        iterator(std::begin(c)), iterator(std::end(c)));
     rit = r.get();
     HPX_TEST(rit != end);
 
-    ref = std::max_element(boost::begin(c), boost::end(c));
+    ref = std::max_element(std::begin(c), std::end(c));
     HPX_TEST(ref != ref_end);
     HPX_TEST_EQ(*ref, *rit);
 }
@@ -130,9 +130,9 @@ void test_max_element_exception(ExPolicy policy, IteratorTag)
         try {
             hpx::parallel::max_element(policy,
                 decorated_iterator(
-                    boost::begin(c),
+                    std::begin(c),
                     [](){ throw std::runtime_error("test"); }),
-                decorated_iterator(boost::end(c)),
+                decorated_iterator(std::end(c)),
                 std::less<std::size_t>());
 
             HPX_TEST(false);
@@ -152,9 +152,9 @@ void test_max_element_exception(ExPolicy policy, IteratorTag)
         try {
             hpx::parallel::max_element(policy,
                 decorated_iterator(
-                    boost::begin(c),
+                    std::begin(c),
                     [](){ throw std::runtime_error("test"); }),
-                decorated_iterator(boost::end(c)));
+                decorated_iterator(std::end(c)));
 
             HPX_TEST(false);
         }
@@ -186,9 +186,9 @@ void test_max_element_exception_async(ExPolicy p, IteratorTag)
             hpx::future<decorated_iterator> f =
                 hpx::parallel::max_element(p,
                     decorated_iterator(
-                        boost::begin(c),
+                        std::begin(c),
                         [](){ throw std::runtime_error("test"); }),
-                    decorated_iterator(boost::end(c)),
+                    decorated_iterator(std::end(c)),
                     std::less<std::size_t>());
 
             returned_from_algorithm = true;
@@ -217,9 +217,9 @@ void test_max_element_exception_async(ExPolicy p, IteratorTag)
             hpx::future<decorated_iterator> f =
                 hpx::parallel::max_element(p,
                     decorated_iterator(
-                        boost::begin(c),
+                        std::begin(c),
                         [](){ throw std::runtime_error("test"); }),
-                    decorated_iterator(boost::end(c)));
+                    decorated_iterator(std::end(c)));
 
             returned_from_algorithm = true;
 
@@ -288,9 +288,9 @@ void test_max_element_bad_alloc(ExPolicy policy, IteratorTag)
         try {
             hpx::parallel::max_element(policy,
                 decorated_iterator(
-                    boost::begin(c),
+                    std::begin(c),
                     [](){ throw std::bad_alloc(); }),
-                decorated_iterator(boost::end(c)),
+                decorated_iterator(std::end(c)),
                 std::less<std::size_t>());
 
             HPX_TEST(false);
@@ -309,9 +309,9 @@ void test_max_element_bad_alloc(ExPolicy policy, IteratorTag)
         try {
             hpx::parallel::max_element(policy,
                 decorated_iterator(
-                    boost::begin(c),
+                    std::begin(c),
                     [](){ throw std::bad_alloc(); }),
-                decorated_iterator(boost::end(c)));
+                decorated_iterator(std::end(c)));
 
             HPX_TEST(false);
         }
@@ -342,9 +342,9 @@ void test_max_element_bad_alloc_async(ExPolicy p, IteratorTag)
             hpx::future<decorated_iterator> f =
                 hpx::parallel::max_element(p,
                     decorated_iterator(
-                        boost::begin(c),
+                        std::begin(c),
                         [](){ throw std::bad_alloc(); }),
-                    decorated_iterator(boost::end(c)),
+                    decorated_iterator(std::end(c)),
                     std::less<std::size_t>());
 
             returned_from_algorithm = true;
@@ -372,9 +372,9 @@ void test_max_element_bad_alloc_async(ExPolicy p, IteratorTag)
             hpx::future<decorated_iterator> f =
                 hpx::parallel::max_element(p,
                     decorated_iterator(
-                        boost::begin(c),
+                        std::begin(c),
                         [](){ throw std::bad_alloc(); }),
-                    decorated_iterator(boost::end(c)));
+                    decorated_iterator(std::end(c)));
 
             returned_from_algorithm = true;
 

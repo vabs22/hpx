@@ -83,7 +83,7 @@ double receive(
         std::size_t const start = 0;
 
         auto range = boost::irange(start, window_size);
-        for_each(par, boost::begin(range), boost::end(range),
+        for_each(par, std::begin(range), std::end(range),
             [&](std::uint64_t j)
             {
                 msg(dest,

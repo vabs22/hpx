@@ -34,11 +34,11 @@ void test_inner_product(ExPolicy policy, IteratorTag)
     std::size_t init = std::rand() % 1007; //-V101
 
     std::size_t r = hpx::parallel::inner_product(policy,
-        iterator(boost::begin(c)), iterator(boost::end(c)),
-        boost::begin(d), init);
+        iterator(std::begin(c)), iterator(std::end(c)),
+        std::begin(d), init);
 
     HPX_TEST_EQ(r, std::inner_product(
-        boost::begin(c), boost::end(c), boost::begin(d), init));
+        std::begin(c), std::end(c), std::begin(d), init));
 }
 
 template <typename ExPolicy, typename IteratorTag>
@@ -56,12 +56,12 @@ void test_inner_product_async(ExPolicy p, IteratorTag)
     std::size_t init = std::rand() % 1007; //-V101
 
     hpx::future<std::size_t> fut_r =
-        hpx::parallel::inner_product(p, iterator(boost::begin(c)),
-        iterator(boost::end(c)), boost::begin(d), init);
+        hpx::parallel::inner_product(p, iterator(std::begin(c)),
+        iterator(std::end(c)), std::begin(d), init);
 
     fut_r.wait();
     HPX_TEST_EQ(fut_r.get(), std::inner_product(
-        boost::begin(c), boost::end(c), boost::begin(d), init));
+        std::begin(c), std::end(c), std::begin(d), init));
 }
 
 template <typename IteratorTag>
